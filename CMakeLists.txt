@@ -6,3 +6,5 @@ find_package(glfw3 REQUIRED)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter1)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter2)
+add_subdirectory(${CMAKE_SOURCE_DIR}/chapter3)
+add_subdirectory(${CMAKE_SOURCE_DIR}/chapter4)

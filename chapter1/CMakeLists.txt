@@ -10,6 +10,6 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
-add_executable(chapter1 "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp;${CMAKE_CURRENT_SOURCE_DIR}/src/glad.c")
-target_include_directories(chapter1 PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_SOURCE_DIR}/third-party/glfw3/include")
+add_executable(chapter1 "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp;${CMAKE_SOURCE_DIR}/third-party/glad/src/glad.c")
+target_include_directories(chapter1 PRIVATE "${CMAKE_SOURCE_DIR}/third-party/glad/include;${CMAKE_SOURCE_DIR}/third-party/glfw3/include")
 target_link_libraries(chapter1 PRIVATE glfw)
