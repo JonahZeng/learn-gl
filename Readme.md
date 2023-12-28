@@ -10,3 +10,6 @@ GLSL规则，uniform变量
 
 ## chapter4
 做一个三角形着色器类
+
+## chapter5
+实现贴图纹理
