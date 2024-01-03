@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 project(learn-gl VERSION 0.1.0 LANGUAGES CXX C)
 
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/third-party/glfw3")
+if(WIN32)
+    list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/third-party/glfw3_win")
+else()
+endif()
 find_package(glfw3 REQUIRED)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter1)
@@ -10,3 +13,4 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/chapter3)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter4)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter5)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter6)
+add_subdirectory(${CMAKE_SOURCE_DIR}/chapter7)

@@ -13,3 +13,9 @@ GLSL规则，uniform变量
 
 ## chapter5
 实现贴图纹理
+
+## chapter6
+实现贴图纹理并偏移旋转
+
+## chapter7
+实现立方体纹理贴图，呈现3D效果

@@ -12,5 +12,5 @@ set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 add_executable(chapter6 "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp;${CMAKE_CURRENT_SOURCE_DIR}/src/shader.cpp;${CMAKE_SOURCE_DIR}/third-party/glad/src/glad.c")
-target_include_directories(chapter6 PRIVATE "${CMAKE_SOURCE_DIR}/third-party/glad/include;${CMAKE_SOURCE_DIR}/third-party/glfw3/include;${CMAKE_CURRENT_SOURCE_DIR}/glm")
+target_include_directories(chapter6 PRIVATE "${CMAKE_SOURCE_DIR}/third-party/glad/include;${CMAKE_SOURCE_DIR}/third-party/glfw3/include;${CMAKE_SOURCE_DIR}/third-party/glm")
 target_link_libraries(chapter6 PRIVATE glfw)
