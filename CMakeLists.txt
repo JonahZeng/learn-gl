@@ -3,8 +3,12 @@ project(learn-gl VERSION 0.1.0 LANGUAGES CXX C)
 
 if(WIN32)
     list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/third-party/glfw3_win")
-else()
 endif()
+
+# if(UNIX)
+#     find_package(OpenGL REQUIRED)
+# endif()
+
 find_package(glfw3 REQUIRED)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter1)
