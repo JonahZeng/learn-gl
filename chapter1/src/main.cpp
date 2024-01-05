@@ -6,10 +6,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 static float vertices[] = {
-    0.5f, 0.5f, 0.0f,   // 右上角
-    0.5f, -0.5f, 0.0f,  // 右下角
-    -0.5f, -0.5f, 0.0f, // 左下角
-    -0.5f, 0.5f, 0.0f   // 左上角
+    0.5f, 0.5f, 0.0f,  
+    0.5f, -0.5f, 0.0f, 
+    -0.5f, -0.5f, 0.0f, 
+    -0.5f, 0.5f, 0.0f 
 };
 
 static unsigned int indices[] = {
@@ -58,7 +58,7 @@ int main()
 
 	glBindVertexArray(0); 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); //GL_ELEMENT_ARRAY_BUFFER特殊，VAO会记录该绑定，所以必须在VAO解绑后解绑EBO
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); //GL_ELEMENT_ARRAY_BUFFER specially，VAO will record this bind，so unbind VAO first, EBO unbind later
 	
 
 	const char *vertexShaderSource = "#version 330 core\n"
