@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
+project(chapter8 VERSION 0.1.0 LANGUAGES CXX C)
+# set(CMAKE_C_STANDARD 99)
+# set(CMAKE_CXX_STANDARD 11)
+# set(CMAKE_CXX_STANDRAD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_CONFIGURATION_TYPES Release;Debug)
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+
+add_executable(chapter8 "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp;${CMAKE_CURRENT_SOURCE_DIR}/src/shader.cpp;${CMAKE_SOURCE_DIR}/third-party/glad/src/glad.c")
+target_include_directories(chapter8 PRIVATE "${CMAKE_SOURCE_DIR}/third-party/glad/include;${CMAKE_SOURCE_DIR}/third-party/glfw3/include;${CMAKE_SOURCE_DIR}/third-party/glm")
+target_link_libraries(chapter8 PRIVATE glfw)
+target_compile_features(chapter8 PUBLIC cxx_std_11 c_std_99)

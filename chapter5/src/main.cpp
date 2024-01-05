@@ -28,16 +28,16 @@ int main()
     stbi_set_flip_vertically_on_load(true);
     int width0, height0, nrChannels0;
 #ifdef _MSC_VER
-    unsigned char *data0 = stbi_load("../../container.jpg", &width0, &height0, &nrChannels0, 0);
+    unsigned char *data0 = stbi_load("../../../image/container.jpg", &width0, &height0, &nrChannels0, 0);
 #else
-    unsigned char *data0 = stbi_load("../container.jpg", &width0, &height0, &nrChannels0, 0);
+    unsigned char *data0 = stbi_load("../../image/container.jpg", &width0, &height0, &nrChannels0, 0);
 #endif
 
     int width1, height1, nrChannels1;
 #ifdef _MSC_VER
-    unsigned char *data1 = stbi_load("../../awesomeface.png", &width1, &height1, &nrChannels1, 0);
+    unsigned char *data1 = stbi_load("../../../image/awesomeface.png", &width1, &height1, &nrChannels1, 0);
 #else
-    unsigned char *data1 = stbi_load("../awesomeface.png", &width1, &height1, &nrChannels1, 0);
+    unsigned char *data1 = stbi_load("../../image/awesomeface.png", &width1, &height1, &nrChannels1, 0);
 #endif
 
     glfwInit();
