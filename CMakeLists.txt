@@ -20,3 +20,16 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/chapter6)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter7)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter8)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter9)
+
+if(USE_QT)
+    message(STATUS "enable Qt example")
+    set(CMAKE_AUTOUIC ON)
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
+
+    find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets OpenGLWidgets)# DataVisualization Network)
+    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets OpenGLWidgets)# DataVisualization Network)
+    
+    add_subdirectory(${CMAKE_SOURCE_DIR}/chapter1-Qt)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/chapter2-Qt)
+endif()
