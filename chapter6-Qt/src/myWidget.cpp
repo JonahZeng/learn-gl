@@ -2,8 +2,12 @@
 #include <QScreen>
 #include <QApplication>
 #include <QTimer>
+#include <QTime>
 #include <QKeyEvent>
 #include <QImage>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 static float vertices[] = {
     -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -16,8 +20,6 @@ unsigned int indices[] = {
     0, 1, 2,
     1, 2, 3
 };
-
-static float faceMixWeight = 0.5f;
 
 MyGlWidget::MyGlWidget(QWidget *parent, Qt::WindowFlags f): QOpenGLWidget(parent, f), myShader(nullptr)
 {
@@ -107,14 +109,20 @@ void MyGlWidget::initializeGL()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 #ifdef _MSC_VER
-    myShader = new Shader("../../chapter5-Qt/src/shader.vs", "../../chapter5-Qt/src/shader.fs", QOpenGLContext::currentContext()->functions());
+    myShader = new Shader("../../chapter6-Qt/src/shader.vs", "../../chapter6-Qt/src/shader.fs", QOpenGLContext::currentContext()->functions());
 #else
-	myShader = new Shader("../chapter5-Qt/src/shader.vs", "../chapter5-Qt/src/shader.fs", QOpenGLContext::currentContext()->functions());
+	myShader = new Shader("../chapter6-Qt/src/shader.vs", "../chapter6-Qt/src/shader.fs", QOpenGLContext::currentContext()->functions());
 #endif
 }
 
 void MyGlWidget::paintGL()
 {
+    glm::mat4 trans;
+    trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+    float currentTime = QTime::currentTime().second() + QTime::currentTime().msec() / 1000.0f;
+    trans = glm::rotate(trans, currentTime, glm::vec3(0.0f, 0.0f, 1.0f));
+    myShader->setMatrix4fv("transform", 1, GL_FALSE, glm::value_ptr(trans));
+
     glClear(GL_COLOR_BUFFER_BIT);
     myShader->use();
     myShader->setInt("texture0", 0);
@@ -124,7 +132,6 @@ void MyGlWidget::paintGL()
     glBindTexture(GL_TEXTURE_2D, texture0);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture1);
-    myShader->setFloat("mixWeight", faceMixWeight);
 
 	glBindVertexArray(VAO);
 	// glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -158,21 +165,4 @@ MyWidget::MyWidget(QWidget *parent, Qt::WindowFlags f): QWidget(parent, f),
 MyWidget::~MyWidget()
 {
 
-}
-
-void MyWidget::keyPressEvent(QKeyEvent *event)
-{
-    if(event->key() == Qt::Key_Up)
-    {
-        faceMixWeight += 0.1f;
-        faceMixWeight = faceMixWeight > 1.0f ? 1.0f:faceMixWeight;
-    }
-    else if(event->key() == Qt::Key_Down)
-    {
-        faceMixWeight -= 0.1f;
-        faceMixWeight = faceMixWeight < 0.0f ? 0.0f:faceMixWeight;
-    }
-    else{
-        event->ignore();
-    }
 }

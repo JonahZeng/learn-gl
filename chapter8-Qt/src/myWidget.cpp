@@ -2,22 +2,61 @@
 #include <QScreen>
 #include <QApplication>
 #include <QTimer>
+#include <QTime>
 #include <QKeyEvent>
 #include <QImage>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
-static float vertices[] = {
-    -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-    -0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-     0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+float vertices[] = {
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
-unsigned int indices[] = {
-    0, 1, 2,
-    1, 2, 3
-};
-
-static float faceMixWeight = 0.5f;
+// unsigned int indices[] = {
+//     0, 1, 2,
+//     1, 2, 3
+// };
 
 MyGlWidget::MyGlWidget(QWidget *parent, Qt::WindowFlags f): QOpenGLWidget(parent, f), myShader(nullptr)
 {
@@ -27,7 +66,7 @@ MyGlWidget::~MyGlWidget()
 {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    // glDeleteBuffers(1, &EBO);
     glDeleteTextures(1, &texture0);
     glDeleteTextures(1, &texture1);
     myShader->del();
@@ -50,10 +89,10 @@ void MyGlWidget::initializeGL()
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    // glGenBuffers(1, &EBO);
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
     glGenTextures(1, &texture0);
     glBindTexture(GL_TEXTURE_2D, texture0);
@@ -93,42 +132,54 @@ void MyGlWidget::initializeGL()
     }
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0); 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 #ifdef _MSC_VER
-    myShader = new Shader("../../chapter5-Qt/src/shader.vs", "../../chapter5-Qt/src/shader.fs", QOpenGLContext::currentContext()->functions());
+    myShader = new Shader("../../chapter8-Qt/src/shader.vs", "../../chapter8-Qt/src/shader.fs", QOpenGLContext::currentContext()->functions());
 #else
-	myShader = new Shader("../chapter5-Qt/src/shader.vs", "../chapter5-Qt/src/shader.fs", QOpenGLContext::currentContext()->functions());
+	myShader = new Shader("../chapter8-Qt/src/shader.vs", "../chapter8-Qt/src/shader.fs", QOpenGLContext::currentContext()->functions());
 #endif
+    glEnable(GL_DEPTH_TEST);
 }
 
 void MyGlWidget::paintGL()
 {
+    QRect clientArea = geometry();
     glClear(GL_COLOR_BUFFER_BIT);
     myShader->use();
     myShader->setInt("texture0", 0);
     myShader->setInt("texture1", 1);
 
+    QTime currentTime = QTime::currentTime();
+    float currentSec = currentTime.second() + float(currentTime.msec())/1000.0f;
+
+    glm::mat4 model;
+    model = glm::rotate(model, currentSec * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+    glm::mat4 view;
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    glm::mat4 projection;
+    projection = glm::perspective(glm::radians(45.0f), (float)clientArea.width() / clientArea.height(), 0.1f, 100.0f);
+    myShader->setMatrix4fv("model", 1, GL_FALSE, glm::value_ptr(model));
+    myShader->setMatrix4fv("view", 1, GL_FALSE, glm::value_ptr(view));
+    myShader->setMatrix4fv("projection", 1, GL_FALSE, glm::value_ptr(projection));
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture0);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture1);
-    myShader->setFloat("mixWeight", faceMixWeight);
 
 	glBindVertexArray(VAO);
-	// glDrawArrays(GL_TRIANGLES, 0, 3);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+    // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 	glBindVertexArray(0);
 }
@@ -158,21 +209,4 @@ MyWidget::MyWidget(QWidget *parent, Qt::WindowFlags f): QWidget(parent, f),
 MyWidget::~MyWidget()
 {
 
-}
-
-void MyWidget::keyPressEvent(QKeyEvent *event)
-{
-    if(event->key() == Qt::Key_Up)
-    {
-        faceMixWeight += 0.1f;
-        faceMixWeight = faceMixWeight > 1.0f ? 1.0f:faceMixWeight;
-    }
-    else if(event->key() == Qt::Key_Down)
-    {
-        faceMixWeight -= 0.1f;
-        faceMixWeight = faceMixWeight < 0.0f ? 0.0f:faceMixWeight;
-    }
-    else{
-        event->ignore();
-    }
 }
