@@ -55,3 +55,6 @@ GLSL规则，uniform变量
 
 ## chapter9
 多个3D BOX
+
+## chapter10
+多个3D BOX，并且实现一个可以自由移动的camera

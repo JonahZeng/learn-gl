@@ -121,12 +121,12 @@ int main()
     glGenVertexArrays(1, &VAO);
     GLuint VBO;
     glGenBuffers(1, &VBO);
-    GLuint EBO;
-    glGenBuffers(1, &EBO);
+    // GLuint EBO;
+    // glGenBuffers(1, &EBO);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
     GLuint texture0;
     glGenTextures(1, &texture0);
@@ -228,7 +228,7 @@ int main()
 
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    // glDeleteBuffers(1, &EBO);
     glDeleteTextures(1, &texture0);
     glDeleteTextures(1, &texture1);
     myShader.del();
