@@ -57,4 +57,4 @@ GLSL规则，uniform变量
 多个3D BOX
 
 ## chapter10
-多个3D BOX，并且实现一个可以自由移动的camera
+多个3D BOX，并且实现一个通过键盘可以在x-z平面自由移动的camera
