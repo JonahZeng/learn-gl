@@ -61,3 +61,6 @@ GLSL规则，uniform变量；
 
 ## chapter11
 多个3D BOX，并且实现一个通过键盘可以在x-z平面自由移动的camera，鼠标控制camera上下俯仰，左右偏航。
+
+## chapter12
+封装一个camera类，实现chapter11的相同功能，这个实现没有Qt版本。

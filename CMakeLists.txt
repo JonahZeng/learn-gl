@@ -22,6 +22,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/chapter8)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter9)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter10)
 add_subdirectory(${CMAKE_SOURCE_DIR}/chapter11)
+add_subdirectory(${CMAKE_SOURCE_DIR}/chapter12)
 
 if(USE_QT)
     message(STATUS "enable Qt example")
