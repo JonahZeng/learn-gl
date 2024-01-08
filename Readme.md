@@ -64,3 +64,7 @@ GLSL规则，uniform变量；
 
 ## chapter12
 封装一个camera类，实现chapter11的相同功能，这个实现没有Qt版本。
+
+## chapter13-Qt
+这是一个Qt官方的example。
+使用OpenGL ES 2.0实现一个cube，并可以通过鼠标旋转。

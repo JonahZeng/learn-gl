@@ -15,9 +15,11 @@ MyGlWidget::MyGlWidget(QWidget *parent, Qt::WindowFlags f): QOpenGLWidget(parent
 
 MyGlWidget::~MyGlWidget()
 {
+    makeCurrent();
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     myShader->del();
+    doneCurrent();
     delete myShader;
 }
 

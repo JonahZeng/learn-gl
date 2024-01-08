@@ -27,12 +27,14 @@ MyGlWidget::MyGlWidget(QWidget *parent, Qt::WindowFlags f): QOpenGLWidget(parent
 
 MyGlWidget::~MyGlWidget()
 {
+    makeCurrent();
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
     glDeleteTextures(1, &texture0);
     glDeleteTextures(1, &texture1);
     myShader->del();
+    doneCurrent();
     delete myShader;
 }
 
