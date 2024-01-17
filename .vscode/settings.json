@@ -1,6 +1,10 @@
 {
     "cmake.configureOnOpen": true,
     "cmake.configureArgs": ["-DCMAKE_PREFIX_PATH=D:/qt643/qtbase", "-DUSE_QT=TRUE"],
+    "glsllint.additionalStageAssociations": {
+        ".fs": "frag",
+        ".vs": "vert"
+    },
     "files.associations": {
         "iostream": "cpp",
         "xstring": "cpp",

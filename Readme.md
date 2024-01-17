@@ -68,3 +68,6 @@ GLSL规则，uniform变量；
 ## chapter13-Qt
 这是一个Qt官方的example。
 使用OpenGL ES 2.0实现一个cube，并可以通过鼠标旋转。
+
+## chapter14
+光照颜色第一部分
